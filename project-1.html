@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DONORA - Fundraising Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --navy-blue: #282D45;
+            --text-light: #ffffff;
+            --accent-orange: #E89B4B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--navy-blue);
+            color: var(--text-light);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 4rem;
+            background-color: var(--navy-blue);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-center img {
+            height: 40px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .start-now {
+            background-color: var(--accent-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 4rem;
+            background-color: var(--navy-blue);
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            width: 50%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Steps Section */
+        .steps-section {
+            padding: 4rem;
+            background-color: var(--navy-blue);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: white;
+            color: var(--navy-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+        }
+
+        .step-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .step-card p {
+            opacity: 0.8;
+        }
+
+        .step-underline {
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-orange);
+            margin: 1rem auto;
+        }
+
+        /* Featured Campaigns Section */
+        .featured-campaigns {
+            background-color: var(--navy-blue);
+            padding: 4rem 0;
+        }
+
+        .featured-header {
+            color: var(--text-light);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding: 0 5%;
+        }
+
+        .campaigns-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .urgent-cause {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .map-container::before {
+            content: none;
+        }
+
+        .cause-content {
+            color: var(--navy-blue);
+        }
+
+        .cause-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #f2e7fe;
+            color: #8b3dff;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .cause-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .cause-content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-now-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-orange);
+            border: none;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .donate-now-btn:hover {
+            background: #d68a3e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(232, 155, 75, 0.3);
+        }
+
+        .donate-now-btn::after {
+            content: '→';
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .donate-now-btn:hover::after {
+            transform: translateX(5px);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .topic-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .topic-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .topic-content {
+            padding: 1.5rem;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #f2e7fe;
+            color: #8b3dff;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic-content h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .learn-more {
+            display: inline-flex;
+            align-items: center;
+            color: var(--navy-blue);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .learn-more:hover {
+            background: rgba(40, 45, 69, 0.1);
+            transform: translateX(5px);
+        }
+
+        .learn-more::after {
+            content: '→';
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .learn-more:hover::after {
+            transform: translateX(5px);
+        }
+
+        /* Success Stories Section */
+        .success-stories {
+            background-color: var(--navy-blue);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .stories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 16px;
+            width: 90%;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .story-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .story-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .story-card:nth-child(1) .story-image {
+            background-image: url('images/education-story.jpg');
+        }
+
+        .story-card:nth-child(2) .story-image {
+            background-image: url('images/medical-story.jpg');
+        }
+
+        .story-card:nth-child(3) .story-image {
+            background-image: url('images/community-story.jpg');
+        }
+
+        .story-content {
+            padding: 1.5rem;
+            color: var(--navy-blue);
+        }
+
+        .story-content h3 {
+            color: var(--navy-blue);
+        }
+
+        .story-stats {
+            color: var(--navy-blue);
+        }
+
+        .impact-tag {
+            background: var(--navy-blue);
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--navy-blue);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+            background-color: white;
+            border-radius: 16px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info {
+            padding: 2rem;
+            color: var(--navy-blue);
+            text-align: left;
+        }
+
+        .contact-info h3 {
+            color: var(--navy-blue);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-orange);
+        }
+
+        .contact-info p {
+            color: var(--navy-blue);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-details {
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            color: var(--navy-blue);
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--navy-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--navy-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: white;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            color: var(--navy-blue);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent-orange);
+            outline: none;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #999;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-orange);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background: #d68a3e;
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: var(--navy-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--accent-orange);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .hero {
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            .hero-content {
+                width: 100%;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .campaigns-container,
+            .stories-container,
+            .contact-container {
+                width: 95%;
+                padding: 2rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-info {
+                padding: 1rem;
+            }
+            
+            .contact-item:hover {
+                transform: none;
+            }
+
+            .urgent-cause {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Donate</a>
+            <a href="#" class="nav-link">Raise</a>
+        </div>
+        <div class="nav-center">
+            <img src="donora-logo.png" alt="DONORA">
+        </div>
+        <div class="nav-right">
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Sign In</a>
+            <a href="#" class="nav-link start-now">Start Now</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Our Fundraising Platform</h1>
+            <p>Join us in making a difference by supporting various fundraising campaigns that bring positive change to communities around the world.</p>
+        </div>
+    </section>
+
+    <section class="steps-section">
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Create Account</h3>
+                <div class="step-underline"></div>
+                <p>Quick setup with email verification and profile creation</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Set Your Goal</h3>
+                <div class="step-underline"></div>
+                <p>Define your fundraising target and timeline</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Add Content</h3>
+                <div class="step-underline"></div>
+                <p>Upload photos, videos, and tell your story</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Share Campaign</h3>
+                <div class="step-underline"></div>
+                <p>Spread the word on social media and email</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">5</div>
+                <h3>Collect Funds</h3>
+                <div class="step-underline"></div>
+                <p>Receive donations securely in your account</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-campaigns">
+        <h2 class="featured-header">Featured Campaigns</h2>
+        <div class="campaigns-container">
+            <div class="urgent-cause">
+                <div class="map-container">
+                    <!-- Thailand map background only -->
+                </div>
+                <div class="cause-content">
+                    <span class="cause-tag">Urgent cause</span>
+                    <h3>Thailand Earthquake Relief</h3>
+                    <p>Support communities affected by recent earthquakes in Thailand. Your donation provides immediate assistance with food, shelter, and essential supplies to affected families.</p>
+                    <a href="#donate" class="donate-now-btn">Donate now</a>
+                </div>
+            </div>
+
+            <div class="featured-grid">
+                <a href="#education" class="topic-card">
+                    <img src="" alt="Displaced Families" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">Featured</span>
+                        <h3>Families displaced with the ongoing conflict between Israel and Gaza</h3>
+                        <span class="learn-more">Learn more</span>
+                    </div>
+                </a>
+
+                <a href="#medical" class="topic-card">
+                    <img src="" alt="Medical Aid for Conflict Victims" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">Urgent cause</span>
+                        <h3>Fundraising for the victims of the ongoing conflict between Israel and Gaza</h3>
+                        <span class="donate-now-btn">Donate now</span>
+                    </div>
+                </a>
+
+                <a href="#community" class="topic-card">
+                    <img src="" alt="Medical Services" class="topic-image">
+                    <div class="topic-content">
+                        <span class="topic-tag">New</span>
+                        <h3>DOH on giving free medical services</h3>
+                        <span class="learn-more">Learn more</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="success-stories">
+        <div class="section-header">
+            <h2>Success Stories</h2>
+            <p>See the impact of your generosity.</p>
+        </div>
+        <div class="stories-container">
+            <div class="story-card">
+                <div class="story-image" style="background-image: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                    <div class="story-overlay"></div>
+                </div>
+                <div class="story-content">
+                    <h3>Education for Rural Children</h3>
+                    <div class="story-stats">
+                        <span class="raised">$25,000 raised</span>
+                        <span class="supporters">342 supporters</span>
+                    </div>
+                    <p>Thanks to generous donors, we provided educational resources and built a new library for a rural school, impacting over 200 children's lives.</p>
+                    <div class="impact-tag">Impact: Education</div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-image" style="background-image: url('https://images.unsplash.com/photo-1631815589068-dc42d26d6fc4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                    <div class="story-overlay"></div>
+                </div>
+                <div class="story-content">
+                    <h3>Medical Treatment Fund</h3>
+                    <div class="story-stats">
+                        <span class="raised">$50,000 raised</span>
+                        <span class="supporters">628 supporters</span>
+                    </div>
+                    <p>Successfully funded life-saving surgery for 5 children from underprivileged families, giving them a chance at a healthy future.</p>
+                    <div class="impact-tag">Impact: Healthcare</div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-image" style="background-image: url('https://images.unsplash.com/photo-1525026198548-4baa812f1183?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')">
+                    <div class="story-overlay"></div>
+                </div>
+                <div class="story-content">
+                    <h3>Community Center Renovation</h3>
+                    <div class="story-stats">
+                        <span class="raised">$35,000 raised</span>
+                        <span class="supporters">415 supporters</span>
+                    </div>
+                    <p>Transformed an old building into a vibrant community center, now serving over 1,000 local residents with various programs and activities.</p>
+                    <div class="impact-tag">Impact: Community</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="section-header">
+            <h2>Contact Us</h2>
+            <p>Get in touch for more information.</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <p>Have questions about our platform? We're here to help! Reach out to us through any of the following channels.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <p>123 something street, Zamboanga City</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <p>support@donora.com</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" placeholder="Enter subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" placeholder="Enter your message" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
